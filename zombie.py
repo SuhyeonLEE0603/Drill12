@@ -4,6 +4,8 @@ import game_framework
 
 from pico2d import *
 
+import game_world
+
 # zombie Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 10.0  # Km / Hour
@@ -18,6 +20,7 @@ FRAMES_PER_ACTION = 10.0
 
 animation_names = ['Walk']
 
+
 class Zombie:
     images = None
 
@@ -25,14 +28,13 @@ class Zombie:
         if Zombie.images == None:
             Zombie.images = {}
             for name in animation_names:
-                Zombie.images[name] = [load_image("./zombie/"+ name + " (%d)" % i + ".png") for i in range(1, 11)]
+                Zombie.images[name] = [load_image("./zombie/" + name + " (%d)" % i + ".png") for i in range(1, 11)]
 
     def __init__(self):
-        self.x, self.y = random.randint(1600-800, 1600), 150
+        self.x, self.y = random.randint(1600 - 800, 1600), 150
         self.load_images()
         self.frame = random.randint(0, 9)
-        self.dir = random.choice([-1,1])
-
+        self.dir = random.choice([-1, 1])
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
@@ -44,14 +46,19 @@ class Zombie:
         self.x = clamp(800, self.x, 1600)
         pass
 
-
     def draw(self):
         if self.dir < 0:
             Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 200, 200)
         else:
             Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, 200, 200)
-
+        draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         pass
 
+    def get_bb(self):
+        return self.x - 80, self.y - 70, self.x + 80, self.y + 70
+
+    def handle_collision(self, group, other):
+        if group == 'zombie:ball':
+            pass
