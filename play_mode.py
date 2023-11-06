@@ -34,6 +34,8 @@ def init():
     boy = Boy()
     game_world.add_object(boy, 1)
 
+    game_world.add_collision_pair('boy:zombie', boy, None)
+
     # fill here
     balls = [Ball(random.randint(0, 1600), 60, 0.0) for i in range(30)]
     game_world.add_objects(balls, 1)
@@ -48,7 +50,7 @@ def init():
 
     for zombie in zombies:
         game_world.add_collision_pair('ball:zombie', None, zombie)
-
+        game_world.add_collision_pair('boy:zombie', None, zombie)
 
 def finish():
     game_world.clear()

@@ -65,6 +65,7 @@ class Zombie:
         if group == 'ball:zombie':
             self.size_x = 100
             self.size_y = 100
+            self.y = 100
             self.collision_cnt += 1
             print(f'{self.collision_cnt=}')
             # if self.size_x == 100:
