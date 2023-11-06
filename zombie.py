@@ -67,7 +67,7 @@ class Zombie:
             self.size_y = 100
             self.y = 100
             self.collision_cnt += 1
-            print(f'{self.collision_cnt=}')
-            # if self.size_x == 100:
-            #     game_world.remove_object(self)
+
+            if self.collision_cnt == 100:
+                game_world.remove_object(self)
 
