@@ -36,6 +36,7 @@ class Zombie:
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1, 1])
         self.size_x, self.size_y = 200, 200
+        self.collision_cnt = 0
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
@@ -64,5 +65,8 @@ class Zombie:
         if group == 'ball:zombie':
             self.size_x = 100
             self.size_y = 100
-
+            self.collision_cnt += 1
+            print(f'{self.collision_cnt=}')
+            # if self.size_x == 100:
+            #     game_world.remove_object(self)
 
