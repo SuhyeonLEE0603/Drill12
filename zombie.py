@@ -70,6 +70,6 @@ class Zombie:
             self.y = 100
             self.collision_cnt += 1
 
-            if self.collision_cnt == 50:
+            if self.collision_cnt == 2:
                 game_world.remove_object(self)
 
